@@ -11,6 +11,8 @@ import (
 
 // NewSecureReader instantiates a new SecureReader
 func NewSecureReader(r io.Reader, priv, pub *[32]byte) io.Reader {
+        //return io.Reader()
+        fmt.Println("what are my arguments?", r, priv, pub);
         return nil
 }
 
