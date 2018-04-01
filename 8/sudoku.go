@@ -6,25 +6,35 @@ import (
 )
 
 func main() {
-/*	i:= 1
-	for i=1; i <100 ;i++  {
-		if i % 3 == 0 {
-			fmt.Println("Fizz")
-			continue
-		}
-		if i % 5 == 0 {
-			fmt.Println("Buzz")
-			continue
-		} else {
-		    fmt.Println(strconv.Itoa(i))
-		}
+	/*var grid [9][9] int
+	print_grid(grid)*/
 
-	}*/
-	var grid [9][9] int
-	print_grid(grid)
+	//creating a 2D array for the grid
+	//grid=[[0 for x in range(9)]for y in range(9)]
+
+	 //assigning values to the grid
+	grid := [][]int {
+		{3,0,6,5,0,8,4,0,0},
+		{5,2,0,0,0,0,0,0,0},
+		{0,8,7,0,0,0,0,3,1},
+		{0,0,3,0,1,0,0,8,0},
+		{9,0,0,8,6,3,0,0,5},
+		{0,5,0,0,9,0,6,0,0},
+		{1,3,0,0,0,0,2,5,0},
+		{0,0,0,0,0,0,0,7,4},
+		{0,0,5,2,0,6,3,0,0}}
+
+	//if sucess print the grid
+	if solve_sudoku(grid){
+		print_grid(grid)
+	} else{
+		//print "No solution exists"
+		fmt.Println("No solution exists")
+	}
+
 }
 
-func print_grid( arr [9][9] int)  {
+func print_grid( arr [][] int)  {
 	i := 0
 	j := 0
 	for i = 0;i < 9 ;  i++{
@@ -35,7 +45,7 @@ func print_grid( arr [9][9] int)  {
 	}
 }
 
-func find_empty_location(arr [9][9] int , list [2] int) bool {
+func find_empty_location(arr [][] int , list [] int) bool {
 	i := 0
 	j := 0
 	for i = 0;i < 9 ;  i++{
@@ -51,7 +61,7 @@ func find_empty_location(arr [9][9] int , list [2] int) bool {
 	return false
 }
 
-func used_in_row(arr [9][9] int, row int, num int) bool {
+func used_in_row(arr [][] int, row int, num int) bool {
 	j:= 0
 	for j = 0; j < 9 ;j++  {
 		if arr[row][j] == num {
@@ -61,7 +71,7 @@ func used_in_row(arr [9][9] int, row int, num int) bool {
 	return false
 }
 
-func used_in_col(arr [9][9] int, col int, num int) bool {
+func used_in_col(arr [][] int, col int, num int) bool {
 	i:= 0
 	for i = 0; i < 9 ;i++  {
 		if arr[i][col] == num {
@@ -71,7 +81,7 @@ func used_in_col(arr [9][9] int, col int, num int) bool {
 	return false
 }
 
-func used_in_box(arr [9][9] int, row int, col int, num int) bool {
+func used_in_box(arr [][] int, row int, col int, num int) bool {
 	i:= 0
 	j:=3
 	for i = 0; i < 3 ;i++  {
@@ -84,14 +94,14 @@ func used_in_box(arr [9][9] int, row int, col int, num int) bool {
 	return false
 }
 
-func check_location_is_safe(arr [9][9] int, row int, col int, num int) bool {
-	return !used_in_row(arr,row,num) && !used_in_col(arr,col,num) && !used_in_box(arr,row,col,num)
+func check_location_is_safe(arr [][] int, row int, col int, num int) bool {
+	return !used_in_row(arr,row,num) && !used_in_col(arr,col,num) && !used_in_box(arr,row - row % 3,col- col % 3,num)
 }
 
-func solve_sudoku(arr[9][9] int) bool {
+func solve_sudoku(arr[][] int) bool {
 
 	//keep track of row and col in find_empty_location function
-	lst := [2]int{0, 0}
+	lst := []int{0, 0}
 
 	//if there is no empty location, we are finished
 	if !find_empty_location(arr, lst) {
@@ -107,7 +117,7 @@ func solve_sudoku(arr[9][9] int) bool {
 		if check_location_is_safe(arr, row, col, num) {
 			arr[row][col] = num
 
-			if(solve_sudoku(arr)) {
+			if solve_sudoku(arr) {
 				return true
 			}
 
