@@ -5,6 +5,7 @@ import (
 	"os"
 	"fmt"
 	"encoding/json"
+	"bufio"
 )
 
 type twitterCredentials struct {
@@ -24,12 +25,20 @@ func main() {
 	}
 	var jsonParser = json.NewDecoder(credFile)
 	jsonParser.Decode(&cred)
+
 	//set anaconda stuff
 	anaconda.SetConsumerKey(cred.Key)
 	anaconda.SetConsumerSecret(cred.Secret)
 	api := anaconda.NewTwitterApi(cred.AccessToken, cred.AccessSecret)
+
+	//read input here
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter text: ")
+	text, _ := reader.ReadString('\n')
+	fmt.Println(text)
+
 	//get a user// connect to a random twitter user
-	user, _ := api.GetUsersShow("khaled", nil)
+	user, _ := api.GetUsersShow(text, nil)
 	//fmt.Println(user)
 	var userID = user.IdStr
 	var bar = make(map[string][]string)
