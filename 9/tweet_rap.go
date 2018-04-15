@@ -28,21 +28,24 @@ func main() {
 	anaconda.SetConsumerKey(cred.Key)
 	anaconda.SetConsumerSecret(cred.Secret)
 	api := anaconda.NewTwitterApi(cred.AccessToken, cred.AccessSecret)
-	//sample use from anaconda docs
-	//MVP connect to twitter api
-	searchResult, _ := api.GetSearch("golang", nil)
-	for _ , tweet := range searchResult.Statuses {
-		fmt.Print(tweet.Text)
+	//get a user// connect to a random twitter user
+	user, _ := api.GetUsersShow("khaled", nil)
+	//fmt.Println(user)
+	var userID = user.IdStr
+	var bar = make(map[string][]string)
+	//get their tweet
+	bar["user_id"] = []string{userID}
+	tweets, err := api.GetUserTimeline(bar)
+	//display tweet (on console)
+	for _, tweet := range tweets {
+		fmt.Println(tweet.CreatedAt, tweet.Text)
 	}
-
 }
 
 
-// connect to a random twitter user
 
-//get their tweet
 
-//display tweet (on console)
+
 
 //MVP 2, take the tweet, turn it into a rap
 
