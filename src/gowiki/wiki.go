@@ -90,5 +90,7 @@ func main() {
 	http.HandleFunc("/view/", makeHandler(viewHandler))
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
+	//add code here to handle root path
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
