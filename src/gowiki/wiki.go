@@ -15,14 +15,14 @@ type Page struct {
 }
 
 func (p *Page) save() error {
-	//change filename to data
-	filename := p.Title + ".txt"
+
+	filename :="data/" + p.Title + ".txt"
 	return ioutil.WriteFile(filename, p.Body, 0600)
 }
 
 func loadPage(title string) (*Page, error) {
-	//change filename to data
-	filename := title + ".txt"
+
+	filename := "data/" + title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
