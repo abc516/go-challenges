@@ -1,1 +1,3 @@
-My attempts at learning Golang. ,
+NOTE: Need ideas for projects
+
+My attempts at learning Golang. To be filled out eventually...
