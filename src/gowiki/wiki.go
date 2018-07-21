@@ -93,5 +93,6 @@ func main() {
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
 	//add code here to handle root path
+	//TODO make a handler that shows links to each page in data (won't scale, but a nice exercise)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
